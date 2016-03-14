@@ -85,6 +85,7 @@ def main(args):
                "enable" : cmds.enableServer,
                "disable" : cmds.disableServer,
                "get-weight" : cmds.getWeight,
+               "sessions" : cmds.getServerSessions,
                "servers" : cmds.listServers,
                "set-weight" : cmds.setWeight,
                "frontends" : cmds.showFrontends,

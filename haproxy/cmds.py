@@ -207,3 +207,25 @@ class listServers(baseStat):
                                               "bOut: %s" % outCols[cols['bout']])))
 
         return servers
+
+class getServerSessions(baseStat):
+    """Get Current Sessions for given server"""
+
+    p_args = ["backend", "server"]
+    cmdTxt = "show stat\r\n"
+    helpTxt = "Get current sessions for server in the given backend"
+
+    def getResult(self, res):
+        if self.args['backend'] is None:
+            raise Exception("Need to specify backend")
+        if self.args['server'] is None:
+            raise Exception("Need to specify server")
+        cols = self.getCols(res)
+
+        for line in res.split('\n'):
+            if line.startswith(self.args['backend']):
+            # Lines for server start with the name of the
+            # backend.
+                outCols = line.split(',')
+                if outCols[cols['svname']] == self.args['server']:
+                    return outCols[cols['scur']]
